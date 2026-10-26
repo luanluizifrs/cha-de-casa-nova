@@ -64,4 +64,4 @@ Estou com a **agenda aberta para projetos freelance e desenvolvimento de soluç�
 
 📬 **Entre em contato comigo:**
 - **GitHub:** [github.com/luanluizifrs](https://github.com/luanluizifrs)
-- **LinkedIn:** [Link do LinkedIn]
+- **LinkedIn:** [Link do LinkedIn](www.linkedin.com/in/luan-luiz)
