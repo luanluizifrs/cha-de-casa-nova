@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chá de Casa Nova</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Paleta de Cores inspirada no Convite */
+        :root {
+            --fundo-creme: #F6F2EC;
+            --cartao-fundo: #FDFBF7;
+            --verde-oliva: #6E8268;
+            --verde-escuro: #4A5D45;
+            --verde-claro: #E6ECE4;
+            --dourado: #C59B5F;
+            --dourado-claro: #EFE4D2;
+            --texto-escuro: #3B3734;
+            --texto-medio: #6E6A66;
+            --borda-suave: #E2DCD3;
+        }
+
+        /* Reset e Configurações Gerais */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--fundo-creme);
+            background-image: radial-gradient(circle at 20% 20%, rgba(110, 130, 104, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(197, 155, 95, 0.06) 0%, transparent 50%);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--texto-escuro);
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--cartao-fundo);
+            width: 100%;
+            max-width: 850px;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(59, 55, 52, 0.08);
+            padding: 3.5rem 2.5rem;
+            border: 1px solid var(--borda-suave);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Moldura interna sutil */
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(197, 155, 95, 0.35);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        /* Decoração de Folhagens nos Cantos (SVG) */
+        .folhagem-topo-esq,
+        .folhagem-topo-dir {
+            position: absolute;
+            top: 0;
+            width: 180px;
+            height: 180px;
+            pointer-events: none;
+            opacity: 0.85;
+            z-index: 0;
+        }
+
+        .folhagem-topo-esq {
+            left: 0;
+        }
+
+        .folhagem-topo-dir {
+            right: 0;
+            transform: scaleX(-1);
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- TOPO: ESTILO DO CONVITE --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--borda-suave);
+        }
+
+        .ilustracao-panelas {
+            width: 110px;
+            height: auto;
+            margin: 0 auto 0.5rem auto;
+            display: block;
+            color: var(--texto-escuro);
+            opacity: 0.85;
+        }
+
+        .evento-tipo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--texto-escuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .casal-nomes {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.2rem;
+            font-weight: 400;
+            color: var(--texto-escuro);
+            line-height: 1.1;
+            margin: 0.5rem 0;
+        }
+
+        .casal-nomes span.e-comercial {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--verde-oliva);
+            display: block;
+            margin: 0.2rem 0;
+            font-style: italic;
+        }
+
+        p.subtitle {
+            font-size: 0.98rem;
+            color: var(--texto-medio);
+            font-weight: 400;
+            max-width: 520px;
+            margin: 1rem auto 1.5rem auto;
+            line-height: 1.6;
+        }
+
+        /* Localização */
+        .local-box {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .local-nome {
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+
+        .local-endereco {
+            font-size: 0.85rem;
+            color: var(--texto-medio);
+            letter-spacing: 1px;
+        }
+
+        .btn-mapa {
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--verde-escuro);
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background-color: var(--verde-claro);
+            transition: all 0.25s ease;
+        }
+
+        .btn-mapa:hover {
+            background-color: var(--verde-oliva);
+            color: #fff;
+        }
+
+        /* --- SEÇÃO DO PIX --- */
+        .pix-section {
+            background: linear-gradient(135deg, var(--verde-oliva) 0%, var(--verde-escuro) 100%);
+            border-radius: 18px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 3rem auto;
+            box-shadow: 0 10px 25px rgba(74, 93, 69, 0.2);
+            color: #ffffff;
+            position: relative;
+        }
+
+        .pix-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #fff;
+        }
+
+        .pix-subtitle {
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .pix-key-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--cartao-fundo);
+            padding: 8px 8px 8px 16px;
+            border-radius: 12px;
+            border: 1px dashed var(--dourado);
+            margin-bottom: 1rem;
+            gap: 10px;
+        }
+
+        .pix-key {
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--texto-escuro);
+            word-break: break-all;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .btn-copiar-pix {
+            background-color: var(--dourado);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copiar-pix:hover {
+            background-color: #b0874c;
+        }
+
+        .pix-details {
+            color: var(--cartao-fundo);
+            font-size: 0.82rem;
+            background: rgba(255, 255, 255, 0.14);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* --- BARRA DE FILTRO E TÍTULO DA LISTA --- */
+        .lista-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            text-align: center;
+        }
+
+        .lista-titulo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--texto-escuro);
+            margin-bottom: 0.4rem;
+        }
+
+        .lista-contador {
+            font-size: 0.85rem;
+            color: var(--texto-medio);
+            margin-bottom: 1.2rem;
+        }
+
+        .filtros-barra {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .busca-input {
+            flex: 1;
+            min-width: 220px;
+            padding: 11px 16px;
+            border-radius: 25px;
+            border: 1px solid var(--borda-suave);
+            background-color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--texto-escuro);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .busca-input:focus {
+            border-color: var(--verde-oliva);
+        }
+
+        .filtro-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-filtro {
+            padding: 10px 16px;
+            border-radius: 25px;
+            border: 1px solid var(--borda-suave);
+            background: #fff;
+            color: var(--texto-medio);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-filtro.ativo {
+            background-color: var(--verde-oliva);
+            color: #fff;
+            border-color: var(--verde-oliva);
+        }
+
+        /* --- LISTA DE PRESENTES --- */
+        .wishlist {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .lista-item {
+            background: #ffffff;
+            border: 1px solid var(--borda-suave);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.25s ease;
+        }
+
+        .lista-item:hover {
+            box-shadow: 0 6px 18px rgba(59, 55, 52, 0.06);
+            border-color: var(--verde-oliva);
+            transform: translateY(-1px);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .item-icone {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background-color: var(--verde-claro);
+            color: var(--verde-escuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .item-nome {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--texto-escuro);
+        }
+
+        .item-reservado-por {
+            font-size: 0.78rem;
+            color: var(--verde-escuro);
+            margin-top: 2px;
+            display: none;
+        }
+
+        /* Botões de Ação */
+        .botoes-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .shopee-btn {
+            background-color: transparent;
+            color: var(--texto-medio);
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: all 0.25s;
+            border: 1px solid var(--borda-suave);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .shopee-btn:hover {
+            border-color: var(--dourado);
+            color: var(--dourado);
+            background-color: rgba(197, 155, 95, 0.06);
+        }
+
+        .btn-reservar {
+            background-color: var(--verde-oliva);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-reservar:hover {
+            background-color: var(--verde-escuro);
+            box-shadow: 0 4px 12px rgba(74, 93, 69, 0.25);
+        }
+
+        /* Estado Reservado */
+        .lista-item.reservado {
+            background-color: #F8F6F2;
+            border-color: var(--borda-suave);
+            opacity: 0.75;
+        }
+
+        .lista-item.reservado .item-nome {
+            text-decoration: line-through;
+            color: var(--texto-medio);
+        }
+
+        .lista-item.reservado .item-reservado-por {
+            display: block;
+        }
+
+        .lista-item.reservado .botoes-container {
+            display: none;
+        }
+
+        .badge-reservado {
+            display: none;
+            background-color: var(--verde-claro);
+            color: var(--verde-escuro);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .lista-item.reservado .badge-reservado {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- MODAL DE CONFIRMAÇÃO DE PRESENTE --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(40, 38, 35, 0.55);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+
+        .modal-overlay.aberto {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--cartao-fundo);
+            border: 1px solid var(--dourado);
+            border-radius: 20px;
+            max-width: 420px;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-titulo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--texto-escuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-item-destaque {
+            font-weight: 700;
+            color: var(--verde-escuro);
+            background: var(--verde-claro);
+            padding: 6px 14px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0.5rem 0 1.2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--borda-suave);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: var(--verde-oliva);
+        }
+
+        .modal-botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-cancelar {
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid var(--borda-suave);
+            background: transparent;
+            color: var(--texto-medio);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-confirmar {
+            padding: 10px 22px;
+            border-radius: 25px;
+            border: none;
+            background: var(--verde-oliva);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-confirmar:hover {
+            background: var(--verde-escuro);
+        }
+
+        /* Status de Sincronização */
+        .sync-status {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--texto-medio);
+            margin-top: 2rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 640px) {
+            .casal-nomes {
+                font-size: 3.2rem;
+            }
+
+            .container {
+                padding: 2.5rem 1.2rem;
+            }
+
+            .container::before {
+                inset: 8px;
+            }
+
+            .data-linha-central {
+                gap: 10px;
+            }
+
+            .dia-semana,
+            .horario {
+                width: 85px;
+                font-size: 0.75rem;
+            }
+
+            .dia-numero {
+                font-size: 2.6rem;
+                padding: 0 12px;
+            }
+
+            .pix-key-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px;
+            }
+
+            .pix-key {
+                text-align: center;
+            }
+
+            .lista-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .botoes-container {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .shopee-btn,
+            .btn-reservar {
+                width: 100%;
+            }
+
+            .badge-reservado {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Folhagens Decorativas estilo aquarela/botânico nos cantos -->
+        <svg class="folhagem-topo-esq" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 C50 20, 90 60, 120 130" stroke="#4A5D45" stroke-width="2" fill="none" />
+            <path d="M35 18 C65 10, 85 28, 55 45 C35 35, 35 18, 35 18 Z" fill="#6E8268" opacity="0.7" />
+            <path d="M62 42 C95 35, 110 55, 78 72 C58 60, 62 42, 62 42 Z" fill="#4A5D45" opacity="0.6" />
+            <path d="M22 45 C12 75, 32 95, 50 62 C40 45, 22 45, 22 45 Z" fill="#6E8268" opacity="0.65" />
+            <path d="M88 78 C120 72, 132 92, 102 106 C85 95, 88 78, 88 78 Z" fill="#6E8268" opacity="0.7" />
+            <path d="M55 82 C45 112, 65 128, 82 98 C72 82, 55 82, 55 82 Z" fill="#4A5D45" opacity="0.55" />
+        </svg>
+        <svg class="folhagem-topo-dir" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 C50 20, 90 60, 120 130" stroke="#4A5D45" stroke-width="2" fill="none" />
+            <path d="M35 18 C65 10, 85 28, 55 45 C35 35, 35 18, 35 18 Z" fill="#6E8268" opacity="0.7" />
+            <path d="M62 42 C95 35, 110 55, 78 72 C58 60, 62 42, 62 42 Z" fill="#4A5D45" opacity="0.6" />
+            <path d="M22 45 C12 75, 32 95, 50 62 C40 45, 22 45, 22 45 Z" fill="#6E8268" opacity="0.65" />
+            <path d="M88 78 C120 72, 132 92, 102 106 C85 95, 88 78, 88 78 Z" fill="#6E8268" opacity="0.7" />
+            <path d="M55 82 C45 112, 65 128, 82 98 C72 82, 55 82, 55 82 Z" fill="#4A5D45" opacity="0.55" />
+        </svg>
+
+        <div class="content-wrapper">
+            <!-- CABEÇALHO COM DADOS DO CONVITE -->
+            <div class="header-section">
+                <!-- Ilustração minimalista de panelas como no topo do convite -->
+                <svg class="ilustracao-panelas" viewBox="0 0 140 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Panela Traseira -->
+                    <rect x="48" y="14" width="44" height="28" rx="4" stroke="#3B3734" stroke-width="1.8"
+                        fill="#FDFBF7" />
+                    <path d="M44 14 H96" stroke="#3B3734" stroke-width="2" stroke-linecap="round" />
+                    <path d="M65 14 C65 9, 75 9, 75 14" stroke="#3B3734" stroke-width="1.8" />
+                    <path d="M42 20 H48 M92 20 H98" stroke="#3B3734" stroke-width="2" stroke-linecap="round" />
+                    <!-- Frigideira/Caçarola Esquerda -->
+                    <rect x="28" y="28" width="36" height="20" rx="3" stroke="#3B3734" stroke-width="1.8"
+                        fill="#FDFBF7" />
+                    <path d="M8 33 H28" stroke="#3B3734" stroke-width="2.5" stroke-linecap="round" />
+                    <!-- Panela Direita -->
+                    <rect x="74" y="24" width="42" height="26" rx="5" stroke="#3B3734" stroke-width="1.8"
+                        fill="#FDFBF7" />
+                    <path d="M72 24 C85 18, 105 18, 118 24" stroke="#3B3734" stroke-width="1.8" />
+                    <circle cx="95" cy="18" r="2.5" stroke="#3B3734" stroke-width="1.6" />
+                    <path d="M68 29 H74 M116 29 H122" stroke="#3B3734" stroke-width="2" stroke-linecap="round" />
+                </svg>
+
+                <h1 class="casal-nomes">
+                    Chá de Casa Nova
+                </h1>
+
+                <p class="subtitle">Estamos montando nosso cantinho com muito carinho e sua presença (e ajuda!) torna
+                    tudo mais especial. ✨</p>
+            </div>
+
+            <!-- SEÇÃO DO PIX -->
+            <div class="pix-section">
+                <h2 class="pix-title">Ajude-nos a comprar nossa lava e seca, qualquer valor é recebido de coração</h2>
+                <!-- <p class="pix-subtitle">Ajude-nos a comprar nossa lava e seca, qualquer valor é recebido de coração.</p> -->
+
+                <div class="pix-key-wrapper">
+                    <span class="pix-key" id="chavePixTexto">chavepix@email.com</span>
+                    <button class="btn-copiar-pix" onclick="copiarPix()" id="btnCopiarPix">📋 Copiar Chave</button>
+                </div>
+
+                <div class="pix-details">Banco: Banco Santander</div>
+            </div>
+
+            <!-- CABEÇALHO E FILTROS DA LISTA -->
+            <div class="lista-header">
+                <h2 class="lista-titulo">Lista de Presentes</h2>
+                <div class="lista-contador" id="contadorItens">Carregando lista...</div>
+
+                <div class="filtros-barra">
+                    <input type="text" id="inputBusca" class="busca-input" placeholder="🔍 Buscar item na lista..."
+                        oninput="filtrarLista()">
+                    <div class="filtro-btns">
+                        <button class="btn-filtro ativo" onclick="mudarFiltro('todos', this)">Todos</button>
+                        <button class="btn-filtro" onclick="mudarFiltro('disponiveis', this)">Disponíveis</button>
+                        <button class="btn-filtro" onclick="mudarFiltro('reservados', this)">Reservados</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LISTA DE PRESENTES -->
+            <ul class="wishlist" id="wishlistContainer">
+                <!-- Os itens são renderizados dinamicamente pelo JavaScript abaixo -->
+            </ul>
+
+            <div class="sync-status" id="syncStatus">
+                ✨ Escolha um item abaixo e clique em "Marcar como presente" para reservar.
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA RESERVAR ITEM -->
+    <div class="modal-overlay" id="modalReserva">
+        <div class="modal-box">
+            <h3 class="modal-titulo">Confirmar Presente 🎁</h3>
+            <p style="font-size: 0.88rem; color: var(--texto-medio);">Você escolheu presentear com:
+            </p>
+            <div class="modal-item-destaque" id="modalNomeItem">Nome do Item</div>
+
+            <input type="text" id="inputNomeConvidado" class="modal-input" placeholder="Seu nome (ex: Tia Maria e João)"
+                maxlength="50">
+
+            <div class="modal-botoes">
+                <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-confirmar" id="btnConfirmarModal" onclick="confirmarReserva()">Confirmar
+                    Reserva</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // Configuração do Firebase (substitua pelas chaves do seu projeto em produção)
+        const firebaseConfig = {
+            apiKey: 'SUA_API_KEY_AQUI',
+            authDomain: 'seu-projeto.firebaseapp.com',
+            databaseURL: 'https://seu-projeto-default-rtdb.firebaseio.com',
+            projectId: 'seu-projeto',
+            storageBucket: 'seu-projeto.firebasestorage.app',
+            messagingSenderId: '000000000000',
+            appId: '1:000000000000:web:0000000000000000000000',
+            measurementId: 'G-XXXXXXXXXX'
+        };
+
+        const MODO_DEMO = firebaseConfig.apiKey === 'SUA_API_KEY_AQUI';
+        let presentesRef = null;
+        const canalDemo = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('cha_casa_nova_demo') : null;
+
+        if (!MODO_DEMO) {
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+            presentesRef = ref(db, 'presentes_cha_casa_nova');
+        }
+
+        // Lista de itens do Chá de Casa Nova (Coleção Shopee da Lucélia)
+        const ITENS_INICIAIS = [
+            { id: "item_45313788", nome: "Aspirador de Pó Vertical 2 em 1 Portátil Gaabor 650W", link: "https://s.shopee.com.br/50a2sWKQQx" },
+            { id: "item_45313700", nome: "Gaveteiro Empilhável Porta Ovos Duplo (32 Ovos) - Organizador de Geladeira", link: "https://s.shopee.com.br/AUuzQXJiUv" },
+            { id: "item_45299152", nome: "Kit 5 Colheres de Arroz Grande Cabo Longo 100% Aço Inox (26cm)", link: "https://s.shopee.com.br/3LRoVuIJLV" },
+            { id: "item_45298491", nome: "Conjunto de Xícaras com Pires 210ml Mimo Style Preto Fosco (4 Peças)", link: "https://s.shopee.com.br/8KqUS6OOB2" },
+            { id: "item_45298209", nome: "Caneca de Vidro Parede Dupla 250ml para Café e Chá", link: "https://s.shopee.com.br/1BNJuYlcu4" },
+            { id: "item_45297794", nome: "Kit 2 Saladeiras Bowl 1,6L Ryo Maresia Areia - Oxford Porcelanas", link: "https://s.shopee.com.br/5q99SYrL8q" },
+            { id: "item_45297753", nome: "Organizador de Cozinha Porta Utensílios e Talheres Canelado de Bancada", link: "https://s.shopee.com.br/60SZep9Rlv" },
+            { id: "item_45297176", nome: "Espelho Oval Orgânico com LED Luz Quente e Fria (80x50 / 40x50)", link: "https://s.shopee.com.br/4qGcFyMvly" },
+            { id: "item_45297138", nome: "Kit Jogo de Panos de Prato Cozinha Copa Cheff 100% Algodão", link: "https://s.shopee.com.br/50a2SFN2Fa" },
+            { id: "item_45296856", nome: "Conjunto 2 Peças para Banheiro de Cerâmica Preto", link: "https://s.shopee.com.br/4B0vSUj8EI" },
+            { id: "item_45257678", nome: "Petisqueira de Madeira com 5 Divisórias / Tábua de Frios com Suporte para Taça", link: "https://s.shopee.com.br/qkSYLNVe4" },
+            { id: "item_45257602", nome: "Porta Frios Acrílico Organizador de Geladeira (até 4 Andares)", link: "https://s.shopee.com.br/6q1fhAf7HO" },
+            { id: "item_45257035", nome: "Kit Utensílios de Cozinha em Aço Inox (Pegador de Macarrão, Espátula, Concha, Escumadeira)", link: "https://s.shopee.com.br/6AlyswFu3A" },
+            { id: "item_45256706", nome: "Travessa Assadeira Refratária com Alça em Porcelana Branca", link: "https://s.shopee.com.br/9pfHFDI3gE" },
+            { id: "item_45256694", nome: "Assadeira / Travessa de Vidro com Tampa Lasanheira Marinex 3,5L Retangular", link: "https://s.shopee.com.br/4VdktOLARZ" },
+            { id: "item_45256630", nome: "Kit 3 Travessas (Pequena, Média e Grande)", link: "https://s.shopee.com.br/4fxB5ZfQns" },
+            { id: "item_45255917", nome: "Travesseiro de Corpo Xuxão Percal 200 Fios 100% Algodão com Capa de Zíper (1,40x0,45m)", link: "https://s.shopee.com.br/7VHMRyK77S" },
+            { id: "item_45254440", nome: "Porta Controle Remoto Decorativo Cobre para Sala", link: "https://s.shopee.com.br/1BNItDNYvG" },
+            { id: "item_45254372", nome: "Panificadora Britânia Digital 12 Programas 3L BPNE01 (220V)", link: "https://s.shopee.com.br/6AlyqJg9Ho" },
+            { id: "item_45254115", nome: "Pote Hermético 4L Acrílico com Tampa Ultra Vedação Empilhável", link: "https://s.shopee.com.br/3B8NGZJpkl" },
+            { id: "item_45251731", nome: "Kit 5 Peças Inox Cozinha (Amassador de Batata e Alho, Descascador, Espremedor e Ralador)", link: "https://s.shopee.com.br/W7c3DKzTF" },
+            { id: "item_45251540", nome: "Kit 50 Cabides de Veludo Slim Antideslizante Ultrafino (Bege / Cinza / Preto)", link: "https://s.shopee.com.br/3VlDcbPnFN" },
+            { id: "item_45250914", nome: "Rack Suspenso Leão 180cm (Cinza)", link: "https://s.shopee.com.br/4fxB04u3Pd" },
+            { id: "item_45248021", nome: "Luminária de Teto Quadrada Moderna Dourada (110-220V)", link: "https://s.shopee.com.br/LoBolrLnZ" },
+            { id: "item_45247823", nome: "Kit 3 Luminárias Pendentes Modernas em Alumínio Preto para Sala/Jantar", link: "https://s.shopee.com.br/50a1N0mT2u" },
+            { id: "item_45247502", nome: "Kit 2 Caixas Organizadoras Grandes 53L Pretas com Rodinhas, Tampa e Trava", link: "https://s.shopee.com.br/2qVWmYbUmU" },
+            { id: "item_45247207", nome: "Persiana PVC Horizontal Cortina Preta (0,80 x 1,30m) Linha Premium", link: "https://s.shopee.com.br/9zyhJ9XU7e" },
+            { id: "item_45246650", nome: "Frigideira Cerâmica Antiaderente 24cm para Indução/Fogão com Espátula", link: "https://s.shopee.com.br/5fpi8cbrJf" },
+            { id: "item_45246393", nome: "Lixeira Inox 3 Litros com Pedal e Cesto Removível", link: "https://s.shopee.com.br/7AeVuyxuoU" },
+            { id: "item_45246180", nome: "Torneira Quadrada Misturadora Preta para Pia de Banheiro", link: "https://s.shopee.com.br/80DcuPoEFr" },
+            { id: "item_45245422", nome: "Depurador e Exaustor Slim Philco PDR60P 60cm 3 Velocidades Preto (220V)", link: "https://s.shopee.com.br/3VlDXSn81F" },
+            { id: "item_45245361", nome: "Assento Sanitário Almofadado com Tampa de Vaso Universal Branco", link: "https://s.shopee.com.br/5q98JZn9rL" },
+            { id: "item_45245202", nome: "Cortina Blackout 100% em Tecido Cor Cinza (3,00 x 2,60m)", link: "https://s.shopee.com.br/7Kxw62X3Ex" },
+            { id: "item_45244753", nome: "Torneira de Cozinha Gourmet 360° Spray Duplo Retrátil Giratório (Preto/Prata)", link: "https://s.shopee.com.br/AAI7Sui0zM" },
+            { id: "item_45194658", nome: "Kit com 3 Potes Quadrados Collection 2,2L Inox Escovado Invicta", link: "https://s.shopee.com.br/9pfFreVbYv" },
+            { id: "item_45194567", nome: "Kit Potes Herméticos de Vidro Canelado Fumê com Tampa de Bambu (1000ml, 750ml e 500ml)", link: "https://s.shopee.com.br/4VdjVjsjhL" },
+            { id: "item_45042885", nome: "Kit 2 Sacos Protetores para Lavar Tênis e Roupas na Máquina de Lavar", link: "https://s.shopee.com.br/9065L8b3Tt" },
+            { id: "item_45042841", nome: "Fechadura Digital 4 em 1 (Biometria, Cartão, Senha e Chave)", link: "https://s.shopee.com.br/9Kivjfc0qK" },
+            { id: "item_45042599", nome: "Potes Multiuso Herméticos de Geladeira (460ml / 950ml) - Porta Mantimentos", link: "https://s.shopee.com.br/30osBYgpi3" },
+            { id: "item_45042503", nome: "Jogo de Tapetes para Banheiro 3 Peças Antiderrapante Felpudo Macio", link: "https://s.shopee.com.br/4qGWMhF6ur" },
+            { id: "item_45042476", nome: "Jogo de Banheiro Conjunto de Tapetes 3 Peças", link: "https://s.shopee.com.br/2BFlBjZkK5" },
+            { id: "item_45041986", nome: "Dispenser Organizacional para Lavanderia e Produtos de Limpeza (1,5L / 2,3L)", link: "https://s.shopee.com.br/30osAJPkL4" },
+            { id: "item_45041423", nome: "Mixer 3 em 1 Power Inox Elgin 1000W MIX3X com Triturador", link: "https://s.shopee.com.br/80DY71aQev" },
+            { id: "item_45041318", nome: "Kit 2 Jarras de Vidro 1 Litro com Tampa para Suco e Água", link: "https://s.shopee.com.br/4qGWKwxLa2" },
+            { id: "item_45041274", nome: "Conjunto Jarra 1,6L e 6 Copos 430ml em Vidro Canelado Premium", link: "https://s.shopee.com.br/80DY6fENeD" },
+            { id: "item_45041253", nome: "Bandeja Espelhada para Cantinho do Café, Lavabo e Bebidas", link: "https://s.shopee.com.br/3B8ILiyvpQ" },
+            { id: "item_45040976", nome: "Kit 3 Bandejas Ovais para Mesa Posta e Cantinho do Café", link: "https://s.shopee.com.br/qkNYqicdl" },
+            { id: "item_45040955", nome: "Kit 2 Tapetes de Cozinha Emborrachados Antiderrapantes (120x40cm + 60x40cm)", link: "https://s.shopee.com.br/8fTEtBgoad" },
+            { id: "item_45040912", nome: "Kit 2 Peças Tapete Jogo Passadeira Belga Antiderrapante Texfine", link: "https://s.shopee.com.br/2gC1k1BgxL" },
+            { id: "item_45040886", nome: "Passadeira a Vapor Portátil Vaporizador de Roupas e Cortinas", link: "https://s.shopee.com.br/50ZwWE9EDB" },
+            { id: "item_45040776", nome: "Conjunto de 5 Potes de Vidro Redondos com Tampa Preta", link: "https://s.shopee.com.br/4LKFicYjH7" },
+            { id: "item_45040222", nome: "Varal Retrátil de Parede em Alumínio Premium Dobrável (até 15kg)", link: "https://s.shopee.com.br/1qcuiwIaCR" },
+            { id: "item_45040043", nome: "Rodo Esfregão Esponja PVA com Cabo Inox 130cm", link: "https://s.shopee.com.br/1BNDvJDPlJ" },
+            { id: "item_45039998", nome: "Mop Spray Rodo Esfregão Mágico com Reservatório e Microfibra", link: "https://s.shopee.com.br/9KiveDBkyC" },
+            { id: "item_44929731", nome: "Balde Retrátil Compacto Dobrável 4 Litros com Alça", link: "https://s.shopee.com.br/1gJReuHnjO" },
+            { id: "item_44929515", nome: "Cesto com Alça Organizador de Prendedores de Roupa para Lavanderia (Preto)", link: "https://s.shopee.com.br/6VOhPMWIym" },
+            { id: "item_44929450", nome: "Varal de Chão com Abas Dobrável em Aço Secalux (12kg)", link: "https://s.shopee.com.br/30opElj3xd" },
+            { id: "item_44929225", nome: "Colher Multifuncional 5 em 1 em Aço Inoxidável (Espremedor, Ralador, Amassador)", link: "https://s.shopee.com.br/8fTByjzPD7" },
+            { id: "item_44929168", nome: "Kit Escorredor Inox Telado para Massas e Arroz", link: "https://s.shopee.com.br/6fi7b2Tgkb" },
+            { id: "item_44929061", nome: "Tapete Secador de Louças de Alta Absorção Antiderrapante para Cozinha", link: "https://s.shopee.com.br/40hMPunxqH" },
+            { id: "item_44928951", nome: "Pote Hermético 1,5L Porta Pão e Bolo Organizador de Cozinha", link: "https://s.shopee.com.br/4fx3D5iJ5B" },
+            { id: "item_44928882", nome: "Tábua de Corte em Aço Inoxidável 304 Antibacteriana (46cm)", link: "https://s.shopee.com.br/3LRfcWys8h" },
+            { id: "item_44928859", nome: "Porta Condimentos e Temperos Inox Giratório 360° com 12 Potes de Vidro", link: "https://s.shopee.com.br/5q90b3iEx2" },
+            { id: "item_44928793", nome: "Kit com 4 Protetores de Silicone para Fogão de Indução", link: "https://s.shopee.com.br/1BDeBUYQY" },
+            { id: "item_44927739", nome: "Saleiro de Parede ou Bancada em Acrílico com Tampa Articulada", link: "https://s.shopee.com.br/AAHzivnWnA" },
+            { id: "item_44927670", nome: "Açucareiro 240ml em Aço Inox com Tampa, Colher e Alça", link: "https://s.shopee.com.br/5q90Yoh3TU" },
+            { id: "item_44927600", nome: "Prato de Cristal com Pé Pearl 20cm Wolff (Boleira / Porta Doces)", link: "https://s.shopee.com.br/7VHEXgO1mt" },
+            { id: "item_44927575", nome: "Kit Mega Panos de Chão Grandes em Microfibra (80x50cm)", link: "https://s.shopee.com.br/2VsYaR4oWA" },
+            { id: "item_44927542", nome: "Kit Pano de Chão Xadrez Extra Grande (50x70cm)", link: "https://s.shopee.com.br/7faejprlJ0" },
+            { id: "item_44927509", nome: "Escorredor e Organizador de Louças Duplo Suspenso em Aço Inox Preto", link: "https://s.shopee.com.br/9zyZW1L6v4" },
+            { id: "item_44927104", nome: "Jogo de Assadeiras Retangulares Antiaderentes 3 Peças Preto", link: "https://s.shopee.com.br/9V2IuCwhG7" },
+            { id: "item_44926891", nome: "Kit Formas e Assadeiras Antiaderentes para Torta, Bolo, Pão e Carnes", link: "https://s.shopee.com.br/7AeO7fyRJo" },
+            { id: "item_44926836", nome: "Kit 3 Facas para Tomate Inox Micro Serrilhada Plenus Tramontina", link: "https://s.shopee.com.br/W7UBJQZuQ" },
+            { id: "item_44926790", nome: "Jogo de Facas Tramontina 6 Peças com Cepo / Faqueiro Churrasco", link: "https://s.shopee.com.br/113km99EXm" },
+            { id: "item_44926602", nome: "Picador e Cortador de Legumes, Frutas e Batata Palito em Cubos", link: "https://s.shopee.com.br/3B8FLl5wcO" },
+            { id: "item_44926556", nome: "Boleira e Queijeira com Base de Bambu e Tampa em Acrílico Grande (28cm)", link: "https://s.shopee.com.br/6Alqv8g9kf" },
+            { id: "item_44788030", nome: "Garrafa Térmica para Café 1 Litro com Cabo de Madeira", link: "https://s.shopee.com.br/4fwzs1tykd" },
+            { id: "item_44786683", nome: "Kit 5 Panos de Prato Grandes Xadrez Preto 100% Algodão Laune Haus", link: "https://s.shopee.com.br/3g4Set8RF9" },
+            { id: "item_44750254", nome: "Kit 3 Funis de Aço Inoxidável Multi-uso para Cozinha", link: "https://s.shopee.com.br/6fi3RFa40Q" },
+            { id: "item_44750223", nome: "Conjunto 3 Peneiras / Coadores em Aço Inox para Cozinha", link: "https://s.shopee.com.br/6fi3RCfXO5" },
+            { id: "item_44750146", nome: "Kit Pratos Rasos para Churrasco em Porcelana Preta Tramontina (6 ou 12 Peças)", link: "https://s.shopee.com.br/AAHvbWQmOp" },
+            { id: "item_44750119", nome: "Kit Churrasco Conjunto Trinchante 3 Peças Tramontina Cabo de Madeira", link: "https://s.shopee.com.br/4VdYr3s21m" },
+            { id: "item_44750008", nome: "Tábua de Churrasco em Madeira Teca Invertida (30x20x2cm)", link: "https://s.shopee.com.br/70KtpW89Hk" },
+            { id: "item_44747765", nome: "Descanso de Utensílios 2 em 1 e Suporte para Tampa de Panela e Colheres", link: "https://s.shopee.com.br/3g4RpCiyg2" },
+            { id: "item_44747720", nome: "Fruteira / Saladeira Centro de Mesa Canelada com Pé e Borda Dourada", link: "https://s.shopee.com.br/W7Q3INeIX" },
+            { id: "item_44747611", nome: "Kit 5 Tigelas Redondas em Aço Inox com Tampa", link: "https://s.shopee.com.br/7AeJzTDh5A" },
+            { id: "item_44747581", nome: "Conjunto de Tigelas / Bowls em Aço Inox Empilháveis (14cm a 24cm)", link: "https://s.shopee.com.br/9zyVMbV7Sd" },
+            { id: "item_44745403", nome: "Borrifador e Pulverizador Culinário para Azeite e Óleo 100ml", link: "https://s.shopee.com.br/8KqHLJVoqP" },
+            { id: "item_44727223", nome: "Kit 10 Peças Utensílios de Cozinha em Silicone e Inox (Colheres, Pegador, Concha)", link: "https://s.shopee.com.br/30okTQ1p33" },
+            { id: "item_44727021", nome: "Kit Acessórios para Banheiro 6 Peças em Inox Preto/Cromado (Toalheiro, Suportes)", link: "https://s.shopee.com.br/9zyUo1QFDW" },
+            { id: "item_44726881", nome: "Kit 6 Bowls / Tigelas de Porcelana Esmaltada Branca Diamante 300ml", link: "https://s.shopee.com.br/3B8AfFdqHv" },
+            { id: "item_44726833", nome: "Jogo de Sobremesa com 6 Taças / Tigelas 120ml em Vidro Canelado", link: "https://s.shopee.com.br/1BN6HUIkLM" },
+            { id: "item_44726822", nome: "Conjunto 1 Bowl 1L e 4 Taças 120ml Diamond Lyor Cristal com Fio de Ouro", link: "https://s.shopee.com.br/3qNrSMiSlh" },
+            { id: "item_44726323", nome: "Jogo 6 Canecas para Café e Chá Ryo Maresia 260ml - Oxford Porcelanas", link: "https://s.shopee.com.br/3B8AeL0w5J" },
+            { id: "item_44726234", nome: "Jogo 6 Taças de Vidro Resistente 465ml para Vinho, Água e Drinks", link: "https://s.shopee.com.br/gQpffPbTG" },
+            { id: "item_44725936", nome: "Kit Copos Risca de Giz Montreal em Semi Cristal Canelado 460ml", link: "https://s.shopee.com.br/2gBu2wAQBR" },
+            { id: "item_44725887", nome: "Chaleira / Jarra Elétrica 1,8L em Aço Inox com Desligamento Automático", link: "https://s.shopee.com.br/30okRTohTF" },
+            { id: "item_44725840", nome: "Kit 2 Frigideiras Brinox Ceramic Life Naturalle Antiaderentes Preta (16cm e 20cm)", link: "https://s.shopee.com.br/BUZ49KJhb" },
+            { id: "item_44725626", nome: "Kit Lixeira de Banheiro Inox com Pedal + Escova Sanitária Inox com Suporte", link: "https://s.shopee.com.br/8AWqaRe6Do" },
+            { id: "item_44725461", nome: "Kit Organizadores de Geladeira Acrílico Clear com Tampa e Cesto de Drenagem", link: "https://s.shopee.com.br/50ZooN5HOm" }
+        ];
+
+        // Estado das reservas sincronizado com o Firebase
+        let reservas = {};
+        let filtroAtual = "todos";
+        let itemSelecionadoParaReserva = null;
+
+        // Inicializa a lista e escuta alterações em tempo real
+        if (MODO_DEMO) {
+            try {
+                reservas = JSON.parse(localStorage.getItem("reservas_demo_portfolio") || "{}");
+            } catch (e) {
+                reservas = {};
+            }
+            renderizarLista();
+            const syncStatus = document.getElementById("syncStatus");
+            if (syncStatus) {
+                syncStatus.textContent = "✅ Demonstração interativa ativa (sincronizada em tempo real entre abas).";
+            }
+            if (canalDemo) {
+                canalDemo.onmessage = (evento) => {
+                    reservas = evento.data || {};
+                    renderizarLista();
+                };
+            }
+        } else {
+            renderizarLista();
+            onValue(presentesRef, (snapshot) => {
+                reservas = snapshot.val() || {};
+                renderizarLista();
+                const syncStatus = document.getElementById("syncStatus");
+                if (syncStatus) {
+                    syncStatus.textContent = "✅ Lista sincronizada em tempo real.";
+                }
+            }, (erro) => {
+                console.error("Erro ao escutar dados do Firebase:", erro);
+                const syncStatus = document.getElementById("syncStatus");
+                if (syncStatus) {
+                    syncStatus.textContent = "⚠️ Não foi possível sincronizar em tempo real no momento.";
+                }
+            });
+        }
+
+        // Renderiza os itens na tela
+        function renderizarLista() {
+            const container = document.getElementById("wishlistContainer");
+            const termoBusca = document.getElementById("inputBusca").value.toLowerCase().trim();
+            container.innerHTML = "";
+
+            let totalDisponiveis = 0;
+            let totalReservados = 0;
+
+            ITENS_INICIAIS.forEach(item => {
+                const infoReserva = reservas[item.id];
+                const estaReservado = Boolean(infoReserva === true || (infoReserva && infoReserva.reservado));
+
+                if (estaReservado) totalReservados++;
+                else totalDisponiveis++;
+
+                // Aplica filtro de status
+                if (filtroAtual === "disponiveis" && estaReservado) return;
+                if (filtroAtual === "reservados" && !estaReservado) return;
+
+                // Aplica filtro de busca por texto
+                if (termoBusca && !item.nome.toLowerCase().includes(termoBusca)) return;
+
+                const li = document.createElement("li");
+                li.className = `lista-item ${estaReservado ? "reservado" : ""}`;
+                li.dataset.id = item.id;
+
+                const urlShopee = item.link || `https://shopee.com.br/search?keyword=${encodeURIComponent(item.nome)}`;
+                const textoReservadoPor = (infoReserva && typeof infoReserva === "object" && infoReserva.por)
+                    ? `Reservado por: ${infoReserva.por}`
+                    : "Reservado";
+
+                li.innerHTML = `
+                    <div class="item-info">
+                        <div class="item-icone">${estaReservado ? "✓" : ""}</div>
+                        <div>
+                            <div class="item-nome">${item.nome}</div>
+                            <div class="item-reservado-por">${textoReservadoPor}</div>
+                        </div>
+                    </div>
+                    <div class="botoes-container">
+                        <a href="${urlShopee}" target="_blank" rel="noopener noreferrer" class="shopee-btn">
+                            🛍️ Ver Produto
+                        </a>
+                        <button onclick="abrirModalReserva('${item.id}')" class="btn-reservar">
+                            🎁 Marcar como presente
+                        </button>
+                    </div>
+                    <div class="badge-reservado">
+                        ✅ Indisponível
+                    </div>
+                `;
+
+                container.appendChild(li);
+            });
+
+            // Atualiza contador
+            const contador = document.getElementById("contadorItens");
+            contador.textContent = `${totalDisponiveis} itens disponíveis • ${totalReservados} já reservados`;
+        }
+
+        // Abre o modal para a pessoa colocar o nome e confirmar
+        function abrirModalReserva(idItem) {
+            const item = ITENS_INICIAIS.find(i => i.id === idItem);
+            if (!item) return;
+
+            itemSelecionadoParaReserva = item;
+            document.getElementById("modalNomeItem").textContent = item.nome;
+            document.getElementById("inputNomeConvidado").value = "";
+            document.getElementById("modalReserva").classList.add("aberto");
+            document.getElementById("inputNomeConvidado").focus();
+        }
+
+        function fecharModal() {
+            itemSelecionadoParaReserva = null;
+            document.getElementById("modalReserva").classList.remove("aberto");
+        }
+
+        // Salva a reserva no Firebase Realtime Database usando update
+        async function confirmarReserva() {
+            if (!itemSelecionadoParaReserva) return;
+
+            const nomeConvidado = document.getElementById("inputNomeConvidado").value.trim() || "Convidado(a)";
+            const btnConfirmar = document.getElementById("btnConfirmarModal");
+            const idItem = itemSelecionadoParaReserva.id;
+            const nomeItem = itemSelecionadoParaReserva.nome;
+
+            btnConfirmar.disabled = true;
+            btnConfirmar.textContent = "Salvando...";
+
+            try {
+                const novaReserva = {
+                    reservado: true,
+                    item: nomeItem,
+                    por: nomeConvidado,
+                    data: new Date().toLocaleString("pt-BR")
+                };
+
+                if (MODO_DEMO) {
+                    reservas[idItem] = novaReserva;
+                    localStorage.setItem("reservas_demo_portfolio", JSON.stringify(reservas));
+                    if (canalDemo) canalDemo.postMessage(reservas);
+                    renderizarLista();
+                } else {
+                    await update(presentesRef, { [idItem]: novaReserva });
+                }
+                fecharModal();
+            } catch (erro) {
+                console.error("Erro ao salvar reserva no Firebase:", erro);
+                alert("Ocorreu um erro ao salvar sua reserva. Tente novamente!");
+            } finally {
+                btnConfirmar.disabled = false;
+                btnConfirmar.textContent = "Confirmar Reserva";
+            }
+        }
+
+        // Filtros e Busca
+        function filtrarLista() {
+            renderizarLista();
+        }
+
+        function mudarFiltro(novoFiltro, botaoClicado) {
+            filtroAtual = novoFiltro;
+            document.querySelectorAll(".btn-filtro").forEach(b => b.classList.remove("ativo"));
+            botaoClicado.classList.add("ativo");
+            renderizarLista();
+        }
+
+        // Copiar Chave PIX
+        function copiarPix() {
+            const chave = document.getElementById("chavePixTexto").textContent.trim();
+            const btn = document.getElementById("btnCopiarPix");
+
+            navigator.clipboard.writeText(chave).then(() => {
+                const textoOriginal = btn.innerHTML;
+                btn.innerHTML = "✅ Copiado!";
+                btn.style.backgroundColor = "#4A5D45";
+                setTimeout(() => {
+                    btn.innerHTML = textoOriginal;
+                    btn.style.backgroundColor = "";
+                }, 2500);
+            });
+        }
+
+        // Expõe as funções no escopo global para os eventos onclick/oninput do HTML
+        window.abrirModalReserva = abrirModalReserva;
+        window.fecharModal = fecharModal;
+        window.confirmarReserva = confirmarReserva;
+        window.filtrarLista = filtrarLista;
+        window.mudarFiltro = mudarFiltro;
+        window.copiarPix = copiarPix;
+    </script>
+</body>
+
+</html>
